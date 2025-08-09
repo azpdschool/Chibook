@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chibook - Think Smart, Play Smart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Gradient Techniques - Secret Sauce! 🎨 */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9ff 30%, #fff3e0 70%, #e8f5e8 100%);
+        }
+
+        .bg-gradient-secondary {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .bg-gradient-books {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .bg-gradient-games {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .bg-gradient-shop {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-book, .floating-star, .floating-pencil, .floating-heart {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+            font-size: 25px;
+        }
+
+        .floating-book { top: 20%; right: 10%; animation-delay: -2s; }
+        .floating-star { top: 60%; left: 15%; animation-delay: -4s; color: #ffd700; }
+        .floating-pencil { top: 30%; left: 80%; animation-delay: -1s; }
+        .floating-heart { top: 70%; right: 20%; animation-delay: -3s; color: #ff69b4; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(5deg); }
+            66% { transform: translateY(-10px) rotate(-3deg); }
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.7rem 3% 0.7rem 2%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.3rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .logo {
+            width: 220px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-right: auto;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            height: 90px !important;
+            width: auto;
+            max-width: none;
+            object-fit: contain;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff9800, #ffb74d);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-icon:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-icon:hover:before {
+            left: 100%;
+        }
+
+        .nav-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255,152,0,0.5);
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9ff 30%, #fff3e0 70%, #e8f5e8 100%);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 50px;
+        }
+
+        .hero-left {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #f44336, #2196f3, #4caf50);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: gradientText 3s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-description {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #ff6b35);
+            background-size: 200% 200%;
+            color: white;
+            padding: 20px 45px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+            position: relative;
+            overflow: hidden;
+            animation: buttonGlow 2s ease infinite;
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+            }
+            50% { 
+                background-position: 100% 50%; 
+                box-shadow: 0 12px 35px rgba(255,107,53,0.6);
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,107,53,0.7);
+        }
+
+        .hero-right {
+            flex: 1;
+            position: relative;
+        }
+
+        .family-container {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+            background: linear-gradient(45deg, #f0f8ff, #e6f3ff);
+        }
+
+        .family-container:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        .family-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .family-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Books Section */
+        .books-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .books-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .book-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Games Section */
+        .games-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        /* Shop Section */
+        .shop-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .shop-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 3rem;
+        }
+
+        .shop-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .shop-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* Character Elements */
+        .character {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ff5722, #ff9800);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 35px;
+            animation: bounce 3s infinite;
+            box-shadow: 0 10px 30px rgba(255,87,34,0.4);
+        }
+
+        .character-1 { bottom: 50px; left: -40px; animation-delay: -0.5s; }
+        .character-2 { bottom: 100px; right: -40px; animation-delay: -1.5s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px;
+                height: 70px;
+            }
+            .logo img {
+                height: 70px !important;
+            }
+            .navbar {
+                padding: 0.7rem 2% 0.7rem 1%;
+            }
+            
+            .nav-icons {
+                gap: 8px;
+            }
+            
+            .nav-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 80px 3% 30px;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+        }
+    </style>
+</head>
+<body>
+    <!--
+    <div class="floating-elements">
+        <div class="floating-book">📚</div>
+        <div class="floating-star">⭐</div>
+        <div class="floating-pencil">✏️</div>
+        <div class="floating-heart">💖</div>
+    </div>
+    -->
+
+    <nav class="navbar" id="navbar">
+        <div class="logo" onclick="scrollToSection('hero')">
+            <img src="assets/images/LOGO_chibook-removebg-preview.png" alt="Chibook Logo">
+        </div>
+        <div class="nav-icons">
+            <div class="nav-icon" onclick="scrollToSection('hero')" title="Home">🏠</div>
+            <div class="nav-icon" onclick="scrollToSection('books')" title="Books">📚</div>
+            <div class="nav-icon" onclick="scrollToSection('games')" title="Games">🎮</div>
+            <div class="nav-icon" onclick="scrollToSection('contact')" title="Contact">✉️</div>
+            <div class="nav-icon" onclick="scrollToSection('shop')" title="Shop">🛒</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1 class="hero-title">Think Smart,<br>Play Smart</h1>
+                <h2 class="hero-subtitle">Aku main, aku coba, aku bisa!</h2>
+                <p class="hero-description">
+                    Ingin anak tumbuh cerdas, logis, dan kreatif?<br>
+                    Temukan pengalaman belajar yang menyenangkan dan interaktif untuk si kecil!
+                </p>
+                <button class="cta-button" onclick="scrollToSection('books')">
+                    🚀 Jelajahi Chibook!
+                </button>
+            </div>
+            
+            <div class="hero-right">
+                <div class="family-container">
+                    <div class="family-placeholder">
+                        👨‍👩‍👧‍👦 Happy Family
+                    </div>
+                    <div class="character character-1">😊</div>
+                    <div class="character character-2">🤗</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="section books-section" id="books">
+        <div class="books-content">
+            <h2 class="section-title">📚 Koleksi Buku Interaktif</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+                Buku-buku edukatif yang mengasah kreativitas dan logika anak
+            </p>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <span class="book-icon">🧩</span>
+                    <h3>Logic Puzzles</h3>
+                    <p>Asah kemampuan berpikir logis dengan puzzle yang menyenangkan</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">🎨</span>
+                    <h3>Creative Arts</h3>
+                    <p>Ekspresikan kreativitas melalui seni dan kerajinan</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">🔬</span>
+                    <h3>Science Fun</h3>
+                    <p>Jelajahi dunia sains dengan eksperimen sederhana</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">📖</span>
+                    <h3>Story Time</h3>
+                    <p>Cerita-cerita menarik yang mengembangkan imajinasi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="section games-section" id="games">
+        <div class="books-content">
+            <h2 class="section-title">🎮 Games Edukatif</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+                Bermain sambil belajar dengan games interaktif yang seru
+            </p>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <span class="book-icon">🧮</span>
+                    <h3>Math Adventure</h3>
+                    <p>Petualangan matematika yang seru dan menantang</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">🔤</span>
+                    <h3>Word Quest</h3>
+                    <p>Jelajahi dunia kata-kata dengan permainan menarik</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">🌍</span>
+                    <h3>Geography Explorer</h3>
+                    <p>Jelajahi dunia dan pelajari geografi dengan menyenangkan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section bg-gradient-secondary" id="contact" style="color: white;">
+        <div class="books-content">
+            <h2 class="section-title">💌 Hubungi Kami</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+                Ada pertanyaan? Kami siap membantu!
+            </p>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <span class="book-icon">📧</span>
+                    <h3>Email</h3>
+                    <p>hello@chibook.com</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">📱</span>
+                    <h3>WhatsApp</h3>
+                    <p>+62 812-3456-7890</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">📍</span>
+                    <h3>Lokasi</h3>
+                    <p>Jakarta, Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="section shop-section" id="shop">
+        <div class="books-content">
+            <h2 class="section-title">🛒 Beli Sekarang!</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+                Dapatkan buku Chibook di platform favorit Anda
+            </p>
+            
+            <div class="shop-links">
+                <div class="shop-card" onclick="window.open('https://shopee.co.id', '_blank')">
+                    <span class="book-icon">🛍️</span>
+                    <h3>Shopee</h3>
+                    <p>Belanja mudah di Shopee</p>
+                </div>
+                <div class="shop-card" onclick="window.open('https://tokopedia.com', '_blank')">
+                    <span class="book-icon">🏪</span>
+                    <h3>Tokopedia</h3>
+                    <p>Cari di Tokopedia</p>
+                </div>
+                <div class="shop-card" onclick="window.open('https://blibli.com', '_blank')">
+                    <span class="book-icon">📦</span>
+                    <h3>Blibli</h3>
+                    <p>Order di Blibli</p>
+                </div>
+                <div class="shop-card" onclick="window.open('https://lazada.co.id', '_blank')">
+                    <span class="book-icon">🎁</span>
+                    <h3>Lazada</h3>
+                    <p>Beli di Lazada</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Parallax effect for floating elements
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.floating-book, .floating-star, .floating-pencil, .floating-heart').forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Enhanced nav icon interactions
+        document.querySelectorAll('.nav-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Visual feedback
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Add ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: 20px;
+                    height: 20px;
+                    left: 50%;
+                    top: 50%;
+                    margin-left: -10px;
+                    margin-top: -10px;
+                `;
+                
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // CTA button enhanced interaction
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = '🎉 Loading Amazing Content...';
+            this.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.style.pointerEvents = 'auto';
+            }, 1500);
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize scroll position
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                setTimeout(() => scrollToSection(targetId), 100);
+            }
+        });
+    </script>
+</body>
+</html>
