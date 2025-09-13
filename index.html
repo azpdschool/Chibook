@@ -54,7 +54,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         .floating-book, .floating-star, .floating-pencil, .floating-heart {
@@ -85,7 +85,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 9999;
             box-shadow: 0 4px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
@@ -255,7 +255,8 @@
 
         .hero-right {
             flex: 1;
-            position: relative;
+            display: flex;
+            justify-content: flex-end;
         }
 
         .family-container {
@@ -266,6 +267,8 @@
             transform: perspective(1000px) rotateY(-5deg);
             transition: transform 0.5s ease;
             background: linear-gradient(45deg, #f0f8ff, #e6f3ff);
+            width: 500px;   /* tambahin ini */
+            height: 500px;  /* tambahin ini */
         }
 
         .family-container:hover {
@@ -273,8 +276,8 @@
         }
 
         .family-placeholder {
-            width: 100%;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
@@ -453,6 +456,26 @@
             .section-title {
                 font-size: 2.5rem;
             }
+            .padlet-embed {
+                border: 1px solid rgba(0,0,0,0.1);
+                border-radius: 2px;
+                box-sizing: border-box;
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+                background: #F4F4F4;
+                z-index: 1 !important; /* Lower z-index than navbar */
+                margin: 20px 0; /* Add some margin for spacing */
+            }
+            .padlet-embed iframe {
+            width: 100%;
+            height: 608px;
+            display: block;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
         }
 
         /* Pulse Animation */
@@ -475,7 +498,7 @@
 
     <nav class="navbar" id="navbar">
         <div class="logo" onclick="scrollToSection('hero')">
-            <img src="assets/images/LOGO_chibook-removebg-preview.png" alt="Chibook Logo">
+            <img src="https://imgur.com/a/jQcA9KD" alt="Chibook Logo">
         </div>
         <div class="nav-icons">
             <div class="nav-icon" onclick="scrollToSection('hero')" title="Home">🏠</div>
@@ -504,43 +527,8 @@
             <div class="hero-right">
                 <div class="family-container">
                     <div class="family-placeholder">
-                        👨‍👩‍👧‍👦 Happy Family
+                        <img src="https://imgur.com/a/JaMhKx8">
                     </div>
-                    <div class="character character-1">😊</div>
-                    <div class="character character-2">🤗</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Books Section -->
-    <section class="section books-section" id="books">
-        <div class="books-content">
-            <h2 class="section-title">📚 Koleksi Buku Interaktif</h2>
-            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
-                Buku-buku edukatif yang mengasah kreativitas dan logika anak
-            </p>
-            
-            <div class="books-grid">
-                <div class="book-card">
-                    <span class="book-icon">🧩</span>
-                    <h3>Logic Puzzles</h3>
-                    <p>Asah kemampuan berpikir logis dengan puzzle yang menyenangkan</p>
-                </div>
-                <div class="book-card">
-                    <span class="book-icon">🎨</span>
-                    <h3>Creative Arts</h3>
-                    <p>Ekspresikan kreativitas melalui seni dan kerajinan</p>
-                </div>
-                <div class="book-card">
-                    <span class="book-icon">🔬</span>
-                    <h3>Science Fun</h3>
-                    <p>Jelajahi dunia sains dengan eksperimen sederhana</p>
-                </div>
-                <div class="book-card">
-                    <span class="book-icon">📖</span>
-                    <h3>Story Time</h3>
-                    <p>Cerita-cerita menarik yang mengembangkan imajinasi</p>
                 </div>
             </div>
         </div>
@@ -574,31 +562,11 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section bg-gradient-secondary" id="contact" style="color: white;">
+    <!-- Books Section -->
+    <section class="section books-section" id="books">
         <div class="books-content">
-            <h2 class="section-title">💌 Hubungi Kami</h2>
-            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
-                Ada pertanyaan? Kami siap membantu!
-            </p>
-            
-            <div class="books-grid">
-                <div class="book-card">
-                    <span class="book-icon">📧</span>
-                    <h3>Email</h3>
-                    <p>hello@chibook.com</p>
-                </div>
-                <div class="book-card">
-                    <span class="book-icon">📱</span>
-                    <h3>WhatsApp</h3>
-                    <p>+62 812-3456-7890</p>
-                </div>
-                <div class="book-card">
-                    <span class="book-icon">📍</span>
-                    <h3>Lokasi</h3>
-                    <p>Jakarta, Indonesia</p>
-                </div>
-            </div>
+            <h2 class="section-title">Apa kata orang tua mengenai Chibook?</h2>
+            <div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:2px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4"><p style="padding:0;margin:0"><iframe src="https://padlet.com/embed/eana78lgfjhivscy" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" style="width:100%;height:608px;display:block;padding:0;margin:0"></iframe></p><div style="display:flex;align-items:center;justify-content:end;margin:0;height:28px"><a href="https://padlet.com?ref=embed" style="display:block;flex-grow:0;margin:0;border:none;padding:0;text-decoration:none" target="_blank"><div style="display:flex;align-items:center;"><img src="https://padlet.net/embeds/made_with_padlet_2022.png" width="114" height="28" style="padding:0;margin:0;background:0 0;border:none;box-shadow:none" alt="Made with Padlet"></div></a></div></div>
         </div>
     </section>
 
@@ -612,24 +580,52 @@
             
             <div class="shop-links">
                 <div class="shop-card" onclick="window.open('https://shopee.co.id', '_blank')">
-                    <span class="book-icon">🛍️</span>
+                    <span class="book-icon">
+                        <img src="https://imgur.com/a/788BUBk">
+                    </span>
                     <h3>Shopee</h3>
                     <p>Belanja mudah di Shopee</p>
                 </div>
                 <div class="shop-card" onclick="window.open('https://tokopedia.com', '_blank')">
-                    <span class="book-icon">🏪</span>
+                    <span class="book-icon">
+                        <img src="https://imgur.com/a/79fCqO5">
+                    </span>
                     <h3>Tokopedia</h3>
                     <p>Cari di Tokopedia</p>
                 </div>
-                <div class="shop-card" onclick="window.open('https://blibli.com', '_blank')">
-                    <span class="book-icon">📦</span>
-                    <h3>Blibli</h3>
-                    <p>Order di Blibli</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section bg-gradient-secondary" id="contact" style="color: white;">
+        <div class="books-content">
+            <h2 class="section-title">💌 Hubungi Kami</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+                Ada pertanyaan? Kami siap membantu!
+            </p>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <span class="book-icon">
+                        <img src="https://imgur.com/a/0oenboU">
+                    </span>
+                    <h3>Email</h3>
+                    <p>hello@chibook.com</p>
                 </div>
-                <div class="shop-card" onclick="window.open('https://lazada.co.id', '_blank')">
-                    <span class="book-icon">🎁</span>
-                    <h3>Lazada</h3>
-                    <p>Beli di Lazada</p>
+                <div class="book-card">
+                    <span class="book-icon">
+                        <img src="https://imgur.com/a/8PUnVPb">
+                    </span>
+                    <h3>WhatsApp</h3>
+                    <p>+62 812-3456-7890</p>
+                </div>
+                <div class="book-card">
+                    <span class="book-icon">
+                        <img src="https://imgur.com/a/WLSWRiU">
+                    </span>
+                    <h3>Lokasi</h3>
+                    <p>Semarang, Indonesia</p>
                 </div>
             </div>
         </div>
